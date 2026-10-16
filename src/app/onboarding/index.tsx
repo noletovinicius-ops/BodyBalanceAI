@@ -8,7 +8,7 @@ import { AppText, Button, Card, Screen } from '@/components/ui';
 import { radius, usePalette } from '@/theme';
 
 const STEPS = [
-  { title: 'Avaliação simples', text: 'Fotos, peso, altura e, se quiser, a medida da cintura. Nada de exames.' },
+  { title: 'Avaliação simples', text: 'Peso, altura e, se quiser, fotos e a medida da cintura. Nada de exames.' },
   { title: 'Score baseado em ciência', text: 'Equações validadas na literatura estimam sua composição corporal.' },
   { title: 'Plano no seu prazo', text: 'Dieta e treino calculados para chegar à meta com segurança.' },
 ];

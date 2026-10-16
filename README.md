@@ -20,7 +20,7 @@ npm run lint
 
 1. **Boas-vindas**, com aviso de que o app é educativo (18+, não gestante).
 2. **Dados básicos:** sexo, idade, altura e peso.
-3. **Fotos:** frente (obrigatória), lado e costas.
+3. **Fotos** (opcional): frente, lado e costas.
 4. **Silhueta:** autoavaliação numa escala de 9 figuras (estilo Stunkard).
 5. **Cintura** (opcional, com tutorial).
 6. **Rotina:** atividade, dias de treino, local, experiência e restrições.

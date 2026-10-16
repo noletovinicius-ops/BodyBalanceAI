@@ -92,12 +92,12 @@ export default function Progress() {
           <AppText variant="caption" muted>
             Repita a mesma luz, roupa e distância das primeiras fotos.
           </AppText>
-          <PhotoSlot label="Frente" required uri={newPhotos.front} onChange={(u) => setNewPhotos({ ...newPhotos, front: u })} />
+          <PhotoSlot label="Frente" uri={newPhotos.front} onChange={(u) => setNewPhotos({ ...newPhotos, front: u })} />
           <PhotoSlot label="Lado" uri={newPhotos.side} onChange={(u) => setNewPhotos({ ...newPhotos, side: u })} />
           <PhotoSlot label="Costas" uri={newPhotos.back} onChange={(u) => setNewPhotos({ ...newPhotos, back: u })} />
           <Button
             title="Salvar fotos"
-            disabled={!newPhotos.front}
+            disabled={!(newPhotos.front || newPhotos.side || newPhotos.back)}
             onPress={() => {
               addPhotos(newPhotos);
               setNewPhotos({});
@@ -107,9 +107,13 @@ export default function Progress() {
           <Button title="Cancelar" variant="ghost" onPress={() => setAdding(false)} />
         </Card>
       ) : (
-        <Card tone={daysSincePhoto >= 28 ? 'accent' : 'surface'}>
+        <Card tone={photos.length > 0 && daysSincePhoto >= 28 ? 'accent' : 'surface'}>
           <AppText variant="caption">
-            {daysSincePhoto >= 28 ? 'Já se passaram 4 semanas: hora de novas fotos!' : `Próximas fotos em ${28 - daysSincePhoto} dias. Fotos a cada 4 semanas mostram melhor a mudança.`}
+            {photos.length === 0
+              ? 'Fotos são opcionais, mas ajudam a enxergar a mudança que a balança não mostra.'
+              : daysSincePhoto >= 28
+                ? 'Já se passaram 4 semanas: hora de novas fotos!'
+                : `Próximas fotos em ${28 - daysSincePhoto} dias. Fotos a cada 4 semanas mostram melhor a mudança.`}
           </AppText>
           <Button title="Adicionar fotos de hoje" variant="secondary" onPress={() => setAdding(true)} />
         </Card>

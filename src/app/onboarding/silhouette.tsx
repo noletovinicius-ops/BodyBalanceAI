@@ -10,12 +10,16 @@ import { radius } from '@/theme';
 
 export default function SilhouetteStep() {
   const draft = useAppStore((s) => s.draft);
-  const front = useAppStore((s) => s.draftPhotos.front);
+  const front = useAppStore((s) => s.draftPhotos.front ?? s.draftPhotos.side ?? s.draftPhotos.back);
   const updateDraft = useAppStore((s) => s.updateDraft);
 
   return (
     <Screen footer={<Button title="Continuar" disabled={!draft.silhouette} onPress={() => router.push('/onboarding/waist')} />}>
-      <StepHeader step={3} title="Qual silhueta mais se parece com você?" subtitle="Compare com a sua foto e escolha com honestidade. Não existe resposta certa." />
+      <StepHeader
+        step={3}
+        title="Qual silhueta mais se parece com você?"
+        subtitle={`${front ? 'Compare com a sua foto' : 'Pense em como você está hoje'} e escolha com honestidade. Não existe resposta certa.`}
+      />
       {front ? (
         <View style={{ flexDirection: 'row', gap: 14, alignItems: 'center' }}>
           <Image source={{ uri: front }} style={{ width: 90, height: 120, borderRadius: radius.md }} contentFit="cover" accessibilityLabel="Sua foto de frente" />

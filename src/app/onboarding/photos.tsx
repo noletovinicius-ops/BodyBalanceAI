@@ -16,13 +16,27 @@ const TIPS = [
 export default function Photos() {
   const photos = useAppStore((s) => s.draftPhotos);
   const setDraftPhoto = useAppStore((s) => s.setDraftPhoto);
+  const hasPhoto = !!(photos.front || photos.side || photos.back);
 
   return (
-    <Screen footer={<Button title="Continuar" disabled={!photos.front} onPress={() => router.push('/onboarding/silhouette')} />}>
+    <Screen
+      footer={
+        <>
+          <Button title="Continuar" disabled={!hasPhoto} onPress={() => router.push('/onboarding/silhouette')} />
+          <Button
+            title="Pular, prefiro não enviar fotos"
+            variant="ghost"
+            onPress={() => {
+              (['front', 'side', 'back'] as const).forEach((pose) => setDraftPhoto(pose, undefined));
+              router.push('/onboarding/silhouette');
+            }}
+          />
+        </>
+      }>
       <StepHeader
         step={2}
         title="Suas fotos de ponto de partida"
-        subtitle="Elas ajudam você a escolher a silhueta mais parecida e a comparar sua evolução. Ficam só no seu aparelho."
+        subtitle="Opcional, mas ajudam a escolher a silhueta mais parecida e a comparar sua evolução. Ficam só no seu aparelho."
       />
       <Card tone="soft">
         <AppText variant="heading">Para fotos comparáveis</AppText>
@@ -34,7 +48,7 @@ export default function Photos() {
           ))}
         </View>
       </Card>
-      <PhotoSlot label="Frente" required uri={photos.front} onChange={(u) => setDraftPhoto('front', u)} />
+      <PhotoSlot label="Frente" uri={photos.front} onChange={(u) => setDraftPhoto('front', u)} />
       <PhotoSlot label="Lado" uri={photos.side} onChange={(u) => setDraftPhoto('side', u)} />
       <PhotoSlot label="Costas" uri={photos.back} onChange={(u) => setDraftPhoto('back', u)} />
     </Screen>
